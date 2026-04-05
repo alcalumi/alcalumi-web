@@ -2,36 +2,34 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
-const caseStudies = [
+const caseStudyKeys = [
   {
-    category: "Retail",
-    title: "AI-Powered Customer Intelligence",
-    description:
-      "Built a machine learning pipeline that analyzes customer behavior patterns, enabling personalized recommendations that increased conversion by 35%.",
+    categoryKey: "cs1Category",
+    titleKey: "cs1Title",
+    descKey: "cs1Desc",
     metrics: [
-      { value: "+35%", label: "Conversion Rate" },
-      { value: "2.1x", label: "Engagement" },
+      { value: "+35%", labelKey: "cs1M1Label" },
+      { value: "2.1x", labelKey: "cs1M2Label" },
     ],
   },
   {
-    category: "Telecom",
-    title: "Intelligent Process Automation",
-    description:
-      "Designed and deployed an AI-driven automation system that reduced manual processing time by 60% while improving accuracy across operations.",
+    categoryKey: "cs2Category",
+    titleKey: "cs2Title",
+    descKey: "cs2Desc",
     metrics: [
-      { value: "-60%", label: "Processing Time" },
-      { value: "99.2%", label: "Accuracy" },
+      { value: "-60%", labelKey: "cs2M1Label" },
+      { value: "99.2%", labelKey: "cs2M2Label" },
     ],
   },
   {
-    category: "Finance",
-    title: "Predictive Analytics Platform",
-    description:
-      "Created a predictive analytics solution that forecasts market trends with high accuracy, enabling data-driven investment decisions.",
+    categoryKey: "cs3Category",
+    titleKey: "cs3Title",
+    descKey: "cs3Desc",
     metrics: [
-      { value: "3.2x", label: "ROI" },
-      { value: "+40%", label: "Forecast Accuracy" },
+      { value: "3.2x", labelKey: "cs3M1Label" },
+      { value: "+40%", labelKey: "cs3M2Label" },
     ],
   },
 ];
@@ -39,10 +37,11 @@ const caseStudies = [
 export default function Results() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="results" className="py-32 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#333] to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-[#e5e4e0] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
@@ -52,44 +51,45 @@ export default function Results() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <span className="text-sm text-[#00e599] font-mono uppercase tracking-widest">
-            Results
+          <span className="text-xs text-[#999] font-mono uppercase tracking-[0.2em]">
+            {t("results", "badge") as string}
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 mb-6">
-            Impact that matters
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mt-4 mb-6 text-[#1a1a1a]">
+            {t("results", "heading") as string}
           </h2>
-          <p className="text-lg text-[#888] max-w-2xl">
-            Real outcomes from real projects. Every engagement is measured by the
-            business value it creates.
+          <p className="text-lg text-[#6b6b6b] max-w-2xl">
+            {t("results", "description") as string}
           </p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-6">
-          {caseStudies.map((study, i) => (
+          {caseStudyKeys.map((study, i) => (
             <motion.div
-              key={study.title}
+              key={study.titleKey}
               initial={{ opacity: 0, y: 40 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.1 + i * 0.15 }}
-              className="group relative p-8 rounded-2xl border border-[#222] bg-[#111]/30 hover:border-[#00e599]/20 transition-all duration-500 flex flex-col"
+              className="group relative p-8 rounded-2xl border border-[#e5e4e0] bg-white hover:border-[#00c781]/20 hover:shadow-lg transition-all duration-500 flex flex-col"
             >
-              <span className="text-xs font-mono text-[#00e599] uppercase tracking-widest mb-4">
-                {study.category}
+              <span className="text-xs font-mono text-[#00c781] uppercase tracking-widest mb-4">
+                {t("results", study.categoryKey) as string}
               </span>
-              <h3 className="text-xl font-bold mb-4 group-hover:text-[#00e599] transition-colors">
-                {study.title}
+              <h3 className="text-xl font-bold mb-4 text-[#1a1a1a] group-hover:text-[#00c781] transition-colors">
+                {t("results", study.titleKey) as string}
               </h3>
-              <p className="text-sm text-[#888] leading-relaxed mb-8 flex-1">
-                {study.description}
+              <p className="text-sm text-[#6b6b6b] leading-relaxed mb-8 flex-1">
+                {t("results", study.descKey) as string}
               </p>
 
-              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#222]">
+              <div className="grid grid-cols-2 gap-4 pt-6 border-t border-[#e5e4e0]">
                 {study.metrics.map((m) => (
-                  <div key={m.label}>
-                    <div className="text-2xl font-bold text-[#00e599]">
+                  <div key={m.labelKey}>
+                    <div className="text-2xl font-bold text-[#00c781]">
                       {m.value}
                     </div>
-                    <div className="text-xs text-[#666] mt-1">{m.label}</div>
+                    <div className="text-xs text-[#999] mt-1">
+                      {t("results", m.labelKey) as string}
+                    </div>
                   </div>
                 ))}
               </div>

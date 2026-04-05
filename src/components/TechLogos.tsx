@@ -2,6 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useLanguage } from "@/i18n/LanguageContext";
 
 const technologies = [
   "OpenAI",
@@ -17,9 +18,10 @@ const technologies = [
 export default function TechLogos() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const { t } = useLanguage();
 
   return (
-    <section className="py-20 border-y border-[#1a1a1a]">
+    <section className="py-16 border-y border-[#e5e4e0]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.div
           ref={ref}
@@ -27,8 +29,8 @@ export default function TechLogos() {
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
         >
-          <p className="text-center text-sm text-[#555] mb-10 uppercase tracking-widest font-mono">
-            Technologies & Partners
+          <p className="text-center text-xs text-[#999] mb-10 uppercase tracking-[0.2em] font-mono">
+            {t("techLogos", "title") as string}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6">
             {technologies.map((tech, i) => (
@@ -37,7 +39,7 @@ export default function TechLogos() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.4, delay: i * 0.05 }}
-                className="text-lg font-medium text-[#444] hover:text-[#888] transition-colors cursor-default"
+                className="text-lg font-medium text-[#bbb] hover:text-[#666] transition-colors cursor-default"
               >
                 {tech}
               </motion.span>

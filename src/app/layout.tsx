@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Providers from "@/components/Providers";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -13,21 +14,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Alcalumi | AI Consulting by Miguel Cabanes",
+  title: "Alcalumi | Consultoría IA por Miguel Cabanes",
   description:
-    "Strategic AI consulting to help businesses harness the power of artificial intelligence. From strategy to implementation, we transform how you work.",
+    "Consultoría estratégica de IA para ayudar a las empresas a aprovechar el poder de la inteligencia artificial. De la estrategia a la implementación, transformamos tu forma de trabajar.",
   keywords: [
-    "AI consulting",
-    "artificial intelligence",
-    "AI strategy",
+    "consultoría IA",
+    "inteligencia artificial",
+    "estrategia IA",
     "machine learning",
-    "AI implementation",
-    "digital transformation",
+    "implementación IA",
+    "transformación digital",
+    "AI consulting",
   ],
   openGraph: {
-    title: "Alcalumi | AI Consulting",
+    title: "Alcalumi | Consultoría IA",
     description:
-      "Strategic AI consulting to help businesses harness the power of artificial intelligence.",
+      "Consultoría estratégica de IA para ayudar a las empresas a aprovechar el poder de la inteligencia artificial.",
     type: "website",
   },
 };
@@ -39,10 +41,13 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="es"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }
